@@ -4,16 +4,11 @@ import axios from "axios";
 
 export default function App() {
   const [repo, setRepo] = useState([]);
-
   useEffect(() => {
     axios.get("https://api.github.com/repositories").then((res) => {
-      setRepo(res.data.map((repo) => repo.id));
+      setRepo(res.data);
     });
   }, []);
 
-  return (
-    <>
-      <RepoList repo={repo} />
-    </>
-  );
+  return <RepoList repo={repo} />;
 }
