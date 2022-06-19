@@ -5,14 +5,16 @@ import React from "react";
 export default function RepoList({ repo }) {
   return (
     <table>
-      <tr className="table-headings">
-        <td>No.</td>
-        <th>Repository ID</th>
-        <th>Name</th>
-        <th>Owner</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
+      <thead>
+        <tr className="table-headings">
+          <td>No.</td>
+          <th>Repository ID</th>
+          <th>Name</th>
+          <th>Owner</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
       <tbody>
         {repo.map((r, index) => (
           <tr>
