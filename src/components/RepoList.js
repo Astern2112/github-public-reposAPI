@@ -11,13 +11,17 @@ export default function RepoList({ repo }) {
         <th>Name</th>
         <th>Owner</th>
         <th>Type</th>
+        <th>Description</th>
       </tr>
       <tbody>
         {repo.map((r, index) => (
           <tr>
             <td>{index + 1}</td>
             <td>{r.id}</td>
-            <td>{r.name} </td>
+            <td>
+              {" "}
+              <a href={r.html_url}> {r.name} </a>
+            </td>
             <td>
               <img
                 src={r.owner.avatar_url}
@@ -25,9 +29,14 @@ export default function RepoList({ repo }) {
                 width={30}
                 height={30}
               />{" "}
-              {r.owner.login}{" "}
+              <a href={r.owner.html_url}>
+                {" "}
+                {r.name}
+                {r.owner.login}
+              </a>
             </td>
             <td>{r.owner.type} </td>
+            <td>{r.description}</td>
           </tr>
         ))}
       </tbody>
