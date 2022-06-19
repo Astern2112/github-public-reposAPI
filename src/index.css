@@ -1,3 +1,20 @@
+.page-heading {
+  text-align: center;
+}
+
 table {
-  border: 1px;
+  border: 1px solid;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td,
+th {
+  border-top: 3px solid;
+  border-bottom: 3px solid;
+  border-left: 1px solid;
+}
+.table-headings {
+  color: rgb(57, 139, 238);
+  font-size: 20px;
 }
