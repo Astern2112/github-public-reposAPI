@@ -2,7 +2,7 @@ import React from "react";
 
 //Need to align table cells, and style table
 
-export default function RepoList({ repo }) {
+export default function RepoList({ repo, pageIndex }) {
   return (
     <table>
       <thead>
@@ -15,30 +15,31 @@ export default function RepoList({ repo }) {
         </tr>
       </thead>
       <tbody>
-        {repo.map((r, index) => (
-          <tr>
-            <td>{r.id}</td>
-            <td>
-              {" "}
-              <a href={r.html_url}> {r.name} </a>
-            </td>
-            <td>
-              <img
-                src={r.owner.avatar_url}
-                alt="Onwer Avatar"
-                width={30}
-                height={30}
-              />{" "}
-              <a href={r.owner.html_url}>
+        {repo[pageIndex - 1] &&
+          repo[pageIndex - 1].map((r) => (
+            <tr>
+              <td>{r.id}</td>
+              <td>
                 {" "}
-                {r.name}
-                {r.owner.login}
-              </a>
-            </td>
-            <td>{r.owner.type} </td>
-            <td>{r.description}</td>
-          </tr>
-        ))}
+                <a href={r.html_url}> {r.name} </a>
+              </td>
+              <td>
+                <img
+                  src={r.owner.avatar_url}
+                  alt="Onwer Avatar"
+                  width={30}
+                  height={30}
+                />{" "}
+                <a href={r.owner.html_url}>
+                  {" "}
+                  {r.name}
+                  {r.owner.login}
+                </a>
+              </td>
+              <td>{r.owner.type} </td>
+              <td>{r.description}</td>
+            </tr>
+          ))}
       </tbody>
     </table>
   );

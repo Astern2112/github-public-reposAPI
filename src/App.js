@@ -7,51 +7,49 @@ import Pagination from "./components/Pagination";
 var parse = require("parse-link-header");
 
 export default function App() {
-  const [repo, setRepo] = useState([]); // array with 10 array elements each with 10 repos
+  const [repo, setRepo] = useState([]);
   const [currentPageUrl, setCurrentPageUrl] = useState(
     "https://api.github.com/repositories?accept=application/vnd.github.v3+json"
-  ); //current Page url that is passed in API call
+  );
   const [nextPageUrl, setNextPageUrl] = useState("");
-  const [pageIndex, setPageIndex] = useState(1); // index of current page
+  const [pageIndex, setPageIndex] = useState(1);
   const [loading, setLoading] = useState(true);
-
-  ///////
-  ////
-  ///////
-  ////
-  ///////
-  ////
 
   useEffect(() => {
     async function getData() {
       setLoading(true);
-      try {
+      let splitRepo = repo;
+
+      while (splitRepo[pageIndex - 1] === undefined) {
         const response = await axios.get(currentPageUrl);
-        const parsed = parse(response.headers.link);
-        setNextPageUrl(parsed.next.url);
-        console.log(response);
-        setRepo(response.data);
-      } catch (error) {
-        console.error(error);
+        const parsedLink = parse(response.headers.link);
+
+        splitRepo = splitRepo.concat(splitReposIntoArray(response.data));
+
+        setRepo(splitRepo);
+        setNextPageUrl(parsedLink.next.url);
       }
       setLoading(false);
     }
     getData();
   }, [currentPageUrl]);
 
-  console.log("repo", repo);
-  ///////
-  ////
-  ///////
-  ////
-  ///////
-  ////
-  ///////
-  ////
+  function splitReposIntoArray(resp) {
+    const arr = [];
+    let currentRepos = [];
+    for (let i = 0; i < 10; i++) {
+      currentRepos = resp.splice(0, 10);
+      arr.push(currentRepos);
+    }
+    currentRepos = [];
+    return arr;
+  }
 
   function gotoNextPage() {
     setPageIndex(pageIndex + 1);
-    setCurrentPageUrl(nextPageUrl);
+    if (repo[pageIndex] === undefined) {
+      setCurrentPageUrl(nextPageUrl);
+    }
   }
   function gotoPrevPage() {
     setPageIndex(pageIndex - 1);
@@ -62,12 +60,7 @@ export default function App() {
   return (
     <>
       <h1 className="page-heading">Github Public Repositories</h1>
-      <Pagination
-        gotoNextPage={gotoNextPage}
-        gotoPrevPage={gotoPrevPage}
-        pageIndex={pageIndex}
-      />
-      <RepoList repo={repo} />
+      <RepoList repo={repo} pageIndex={pageIndex} />
       <Pagination
         gotoNextPage={gotoNextPage}
         gotoPrevPage={gotoPrevPage}
