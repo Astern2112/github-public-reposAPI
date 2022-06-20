@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import RepoList from "./components/RepoList";
 import axios from "axios";
 import Loading from "./components/Loading";
 import Pagination from "./components/Pagination";
 
-//var parse = require("parse-link-header");
+var parse = require("parse-link-header");
 
 export default function App() {
   const [repo, setRepo] = useState([]);
@@ -28,11 +28,13 @@ export default function App() {
         setLoading(false);
         setRepo(firstTenRepos); // passes repo object 1 repo = 1 element in array
         //let parsed = parse(res.headers.link);
+        //let nextUrl = parsed.next.url;
+        //setNextPageUrl(nextUrl);
         let sinceParam = firstTenRepos[firstTenRepos.length - 1].id;
+        console.log(sinceParam);
         setNextPageUrl(
           `https://api.github.com/repositories?accept=application/vnd.github.v3+json&since=${sinceParam}`
         );
-        console.log(firstTenRepos[0].id);
       });
 
     return () => cancel();
@@ -45,6 +47,7 @@ export default function App() {
     setCurrentPageUrl(nextPageUrl);
   }
   function gotoPrevPage() {
+    setPageIndex(pageIndex - 1);
     setCurrentPageUrl(prevPageUrl);
   }
 
