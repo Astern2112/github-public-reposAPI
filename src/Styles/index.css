@@ -1,0 +1,48 @@
+:root {
+  --defaul-color: #5525be;
+}
+
+html {
+  font-family: "Quicksand", sans-serif;
+}
+
+.page-heading {
+  text-align: center;
+}
+.table-content {
+  border-collapse: collapse;
+  margin: 25px;
+  font-size: 1.5em;
+  min-width: 400px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+}
+
+.table-content thead tr {
+  background-color: var(--defaul-color);
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+.table-content th,
+.table-content td {
+  padding: 35px 15px;
+}
+
+.table-content tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.table-content tbody tr:nth-of-type(even) {
+  background-color: #f4f4f4;
+}
+
+.table-content tbody tr:last-of-type {
+  border-bottom: 13px solid #5525be;
+}
+
+.table-content tbody tr.active-row {
+  font-weight: bold;
+}

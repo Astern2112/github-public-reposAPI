@@ -6,10 +6,10 @@ import { RepoContext } from "../App";
 export default function RepoList() {
   let { repo, pageIndex } = useContext(RepoContext);
   return (
-    <table>
+    <table className="table-content">
       <thead>
-        <tr className="table-headings">
-          <th>Repository ID</th>
+        <tr>
+          <th>ID</th>
           <th>Name</th>
           <th>Owner</th>
           <th>Type</th>
@@ -22,7 +22,6 @@ export default function RepoList() {
             <tr>
               <td>{r.id}</td>
               <td>
-                {" "}
                 <a href={r.html_url}> {r.name} </a>
               </td>
               <td>
@@ -32,11 +31,7 @@ export default function RepoList() {
                   width={30}
                   height={30}
                 />{" "}
-                <a href={r.owner.html_url}>
-                  {" "}
-                  {r.name}
-                  {r.owner.login}
-                </a>
+                <a href={r.owner.html_url}>{r.owner.login}</a>
               </td>
               <td>{r.owner.type} </td>
               <td>{r.description}</td>
