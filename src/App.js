@@ -7,40 +7,38 @@ import Pagination from "./components/Pagination";
 var parse = require("parse-link-header");
 
 export default function App() {
-  const [repo, setRepo] = useState([]);
+  const [repo, setRepo] = useState([]); // array with 10 array elements each with 10 repos
   const [currentPageUrl, setCurrentPageUrl] = useState(
     "https://api.github.com/repositories?accept=application/vnd.github.v3+json"
-  );
+  ); //current Page url that is passed in API call
   const [nextPageUrl, setNextPageUrl] = useState("");
-  const [prevPageUrl, setPrevPageUrl] = useState("");
-  const [pageIndex, setPageIndex] = useState(1);
+  const [pageIndex, setPageIndex] = useState(1); // index of current page
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-    let cancel;
-    axios
-      .get(currentPageUrl, {
-        cancelToken: new axios.CancelToken((c) => (cancel = c)),
-      })
-      .then((res) => {
-        let firstTenRepos = res.data.slice(0, 10);
-        setLoading(false);
-        setRepo(firstTenRepos); // passes repo object 1 repo = 1 element in array
-        //let parsed = parse(res.headers.link);
-        //let nextUrl = parsed.next.url;
-        //setNextPageUrl(nextUrl);
-        let sinceParam = firstTenRepos[firstTenRepos.length - 1].id;
-        console.log(sinceParam);
-        setNextPageUrl(
-          `https://api.github.com/repositories?accept=application/vnd.github.v3+json&since=${sinceParam}`
-        );
-      });
+    const getRepos = async () => {
+      setLoading(true);
+      let cancel;
 
-    return () => cancel();
-  }, [currentPageUrl]); //everytime currentPageUrl changes there will be a new API call
+      try {
+        const res = await axios.get(currentPageUrl, {
+          cancelToken: new axios.CancelToken((c) => (cancel = c)),
+        });
+        console.log(res);
+        console.log(res.data);
+        setRepo(res.data);
+        const links = parse(res.headers.link);
+        const nextLinkURL = links.next.url;
+        console.log(nextLinkURL);
+        setNextPageUrl(nextLinkURL);
 
-  //PAGINATION
+        return () => cancel();
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getRepos();
+  }, [currentPageUrl]);
 
   function gotoNextPage() {
     setPageIndex(pageIndex + 1);
@@ -48,7 +46,6 @@ export default function App() {
   }
   function gotoPrevPage() {
     setPageIndex(pageIndex - 1);
-    setCurrentPageUrl(prevPageUrl);
   }
 
   if (loading) return <Loading />; //add A LOADING COMPONENT
