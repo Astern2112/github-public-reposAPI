@@ -15,30 +15,39 @@ export default function App() {
   const [pageIndex, setPageIndex] = useState(1); // index of current page
   const [loading, setLoading] = useState(true);
 
+  ///////
+  ////
+  ///////
+  ////
+  ///////
+  ////
+
   useEffect(() => {
-    const getRepos = async () => {
+    async function getData() {
       setLoading(true);
-      let cancel;
-
       try {
-        const res = await axios.get(currentPageUrl, {
-          cancelToken: new axios.CancelToken((c) => (cancel = c)),
-        });
-        console.log(res);
-        console.log(res.data);
-        setRepo(res.data);
-        const links = parse(res.headers.link);
-        const nextLinkURL = links.next.url;
-        console.log(nextLinkURL);
-        setNextPageUrl(nextLinkURL);
-
-        return () => cancel();
+        const response = await axios.get(currentPageUrl);
+        const parsed = parse(response.headers.link);
+        setNextPageUrl(parsed.next.url);
+        console.log(response);
+        setRepo(response.data);
       } catch (error) {
         console.error(error);
       }
-    };
-    getRepos();
+      setLoading(false);
+    }
+    getData();
   }, [currentPageUrl]);
+
+  console.log("repo", repo);
+  ///////
+  ////
+  ///////
+  ////
+  ///////
+  ////
+  ///////
+  ////
 
   function gotoNextPage() {
     setPageIndex(pageIndex + 1);
