@@ -1,29 +1,68 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import RepoList from "./components/RepoList";
 import axios from "axios";
-var parse = require("parse-link-header");
+import Loading from "./components/Loading";
+import Pagination from "./components/Pagination";
+
+//var parse = require("parse-link-header");
 
 export default function App() {
   const [repo, setRepo] = useState([]);
   const [currentPageUrl, setCurrentPageUrl] = useState(
     "https://api.github.com/repositories?accept=application/vnd.github.v3+json"
   );
-
-  //LINK (next): <https://api.github.com/repositories?accept=application%2Fvnd.github.v3+json&since=369>; rel="next",
-  //LINK (first): <https://api.github.com/repositories{?since}>; rel="first"
+  const [nextPageUrl, setNextPageUrl] = useState("");
+  const [prevPageUrl, setPrevPageUrl] = useState("");
+  const [pageIndex, setPageIndex] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(currentPageUrl).then((res) => {
-      setRepo(res.data); // passes repo object 1 repo = 1 element in array
-      let parsed = parse(res.headers.link);
-      console.log(parsed);
-    });
-  }, [currentPageUrl]);
+    setLoading(true);
+    let cancel;
+    axios
+      .get(currentPageUrl, {
+        cancelToken: new axios.CancelToken((c) => (cancel = c)),
+      })
+      .then((res) => {
+        let firstTenRepos = res.data.slice(0, 10);
+        setLoading(false);
+        setRepo(firstTenRepos); // passes repo object 1 repo = 1 element in array
+        //let parsed = parse(res.headers.link);
+        let sinceParam = firstTenRepos[firstTenRepos.length - 1].id;
+        setNextPageUrl(
+          `https://api.github.com/repositories?accept=application/vnd.github.v3+json&since=${sinceParam}`
+        );
+        console.log(firstTenRepos[0].id);
+      });
+
+    return () => cancel();
+  }, [currentPageUrl]); //everytime currentPageUrl changes there will be a new API call
+
+  //PAGINATION
+
+  function gotoNextPage() {
+    setPageIndex(pageIndex + 1);
+    setCurrentPageUrl(nextPageUrl);
+  }
+  function gotoPrevPage() {
+    setCurrentPageUrl(prevPageUrl);
+  }
+
+  if (loading) return <Loading />; //add A LOADING COMPONENT
 
   return (
     <>
       <h1 className="page-heading">Github Public Repositories</h1>
       <RepoList repo={repo} />
+      <Pagination
+        gotoNextPage={gotoNextPage}
+        gotoPrevPage={gotoPrevPage}
+        pageIndex={pageIndex}
+      />
     </>
   );
 }
+
+//try and extract the first 10 elemetns in the repo Array that is pased line 50
+// get the id of the last repo element in the array
+// can set the since parameter to the last element's id
