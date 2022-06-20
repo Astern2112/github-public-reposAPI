@@ -7,7 +7,6 @@ export default function RepoList({ repo }) {
     <table>
       <thead>
         <tr className="table-headings">
-          <td>No.</td>
           <th>Repository ID</th>
           <th>Name</th>
           <th>Owner</th>
@@ -18,7 +17,6 @@ export default function RepoList({ repo }) {
       <tbody>
         {repo.map((r, index) => (
           <tr>
-            <td>{index + 1}</td>
             <td>{r.id}</td>
             <td>
               {" "}
