@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, createContext, useRef } from "react";
 import RepoList from "./components/RepoList";
 import axios from "axios";
 import Loading from "./components/Loading";
 import Pagination from "./components/Pagination";
-
+export const RepoContext = createContext();
 var parse = require("parse-link-header");
 
 export default function App() {
@@ -19,13 +19,10 @@ export default function App() {
     async function getData() {
       setLoading(true);
       let splitRepo = repo;
-
       while (splitRepo[pageIndex - 1] === undefined) {
         const response = await axios.get(currentPageUrl);
         const parsedLink = parse(response.headers.link);
-
         splitRepo = splitRepo.concat(splitReposIntoArray(response.data));
-
         setRepo(splitRepo);
         setNextPageUrl(parsedLink.next.url);
       }
@@ -60,7 +57,9 @@ export default function App() {
   return (
     <>
       <h1 className="page-heading">Github Public Repositories</h1>
-      <RepoList repo={repo} pageIndex={pageIndex} />
+      <RepoContext.Provider value={{ repo, pageIndex }}>
+        <RepoList />
+      </RepoContext.Provider>
       <Pagination
         gotoNextPage={gotoNextPage}
         gotoPrevPage={gotoPrevPage}
@@ -69,7 +68,3 @@ export default function App() {
     </>
   );
 }
-
-//try and extract the first 10 elemetns in the repo Array that is pased line 50
-// get the id of the last repo element in the array
-// can set the since parameter to the last element's id

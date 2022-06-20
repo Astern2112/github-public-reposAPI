@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { RepoContext } from "../App";
 
 //Need to align table cells, and style table
 
-export default function RepoList({ repo, pageIndex }) {
+export default function RepoList() {
+  let { repo, pageIndex } = useContext(RepoContext);
   return (
     <table>
       <thead>
