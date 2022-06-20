@@ -5,7 +5,8 @@ export default function Pagination({ gotoNextPage, gotoPrevPage, pageIndex }) {
   return (
     <div className="navbar">
       <button onClick={gotoPrevPage}>❮ Previous</button>
-      <h4 className="pageIndex">{pageIndex}</h4>
+
+      <p className="pageIndex">Page {pageIndex}</p>
       <button onClick={gotoNextPage}>Next ❯ </button>
     </div>
   );

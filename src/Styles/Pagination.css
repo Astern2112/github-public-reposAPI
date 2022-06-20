@@ -1,12 +1,10 @@
 .navbar {
-  margin: 0;
+  margin: 20px 800px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 20px;
   position: relative;
   bottom: 0px;
-  width: 100%;
 }
 .navbar > button {
   background-color: #008cba;
@@ -29,7 +27,7 @@
 }
 
 .pageIndex {
-  margin: 0;
+  margin: 11px;
   text-align: center;
-  font-size: 50px;
+  font-size: 25px;
 }

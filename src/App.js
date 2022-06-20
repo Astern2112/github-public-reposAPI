@@ -56,6 +56,11 @@ export default function App() {
   return (
     <>
       <h1 className="page-heading">Github Public Repositories</h1>
+      <Pagination
+        gotoNextPage={gotoNextPage}
+        gotoPrevPage={gotoPrevPage}
+        pageIndex={pageIndex}
+      />
       <RepoList repo={repo} />
       <Pagination
         gotoNextPage={gotoNextPage}
