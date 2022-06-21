@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../Styles/Pagination.css";
 
 export default function Pagination({ gotoNextPage, gotoPrevPage, pageIndex }) {

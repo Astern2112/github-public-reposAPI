@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, useRef } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import RepoList from "./components/RepoList";
 import axios from "axios";
 import Loading from "./components/Loading";
@@ -29,7 +29,7 @@ export default function App() {
       setLoading(false);
     }
     getData();
-  }, [currentPageUrl]);
+  }, [currentPageUrl, pageIndex, repo]);
 
   function splitReposIntoArray(resp) {
     const arr = [];
