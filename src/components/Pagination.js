@@ -5,9 +5,13 @@ export default function Pagination({ gotoNextPage, gotoPrevPage, pageIndex }) {
   return (
     <nav>
       <form className="page-input-form">
-        <label htmlFor="page-input">Go to page </label>
-        <input type="number" id="page-input" />
-        <button type="submit">Go</button>
+        <label htmlFor="page-input" className="page-input-label">
+          Go to page{" "}
+        </label>
+        <input type="number" id="page-input" min={1} placeholder={pageIndex} />
+        <button type="submit" className="page-input-form-btn">
+          Go
+        </button>
       </form>
 
       <div className="navbar">

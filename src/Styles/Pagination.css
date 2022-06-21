@@ -51,3 +51,41 @@ button:active {
 button:disabled {
   visibility: hidden;
 }
+
+.page-input-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.page-input-form > * {
+  margin: 5px;
+}
+
+.page-input-label {
+  color: black;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+#page-input {
+  width: 40px;
+  height: 30px;
+  font-size: large;
+  border: 2px solid var(--default-color);
+  border-radius: 10px;
+  text-align: center;
+}
+.page-input-form-btn {
+  text-align: center;
+  padding: 0;
+  width: 50px;
+  height: 35px;
+  border: 2px solid var(--default-color);
+  background-color: var(--default-color);
+  color: white;
+  border-radius: 10px;
+  font-size: large;
+}
