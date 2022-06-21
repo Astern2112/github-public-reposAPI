@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import "../Styles/Pagination.css";
 
 export default function Pagination({ gotoNextPage, gotoPrevPage, pageIndex }) {
   return (
     <div className="navbar">
-      <button onClick={gotoPrevPage}>❮ Previous</button>
-      <p className="pageIndex">Page {pageIndex}</p>
-      <button onClick={gotoNextPage}>Next ❯ </button>
+      <button id="PrevButton" onClick={gotoPrevPage} disabled={pageIndex === 1}>
+        {" "}
+        ❮ Previous{" "}
+      </button>
+      <p className="pageIndex"> Page {pageIndex}</p>
+      <button id="NextButton" onClick={gotoNextPage}>
+        Next ❯{" "}
+      </button>
     </div>
   );
 }

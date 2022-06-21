@@ -1,29 +1,39 @@
 :root {
-  --defaul-color: #5525be;
+  --default-color: rgb(65, 73, 194);
 }
 
 html {
   font-family: "Quicksand", sans-serif;
+  color: black;
+}
+body {
+  display: flex;
+  background-color: rgb(255, 255, 255);
 }
 
 .page-heading {
   text-align: center;
+  font-size: 50px;
 }
 .table-content {
   border-collapse: collapse;
   margin: 25px;
   font-size: 1.5em;
-  min-width: 400px;
+  min-width: 300px;
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  background-color: rgb(255, 255, 255);
 }
 
 .table-content thead tr {
-  background-color: var(--defaul-color);
+  background-color: var(--default-color);
   color: #ffffff;
   text-align: left;
   font-weight: bold;
+  position: sticky;
+  top: 0px;
 }
 
 .table-content th,
@@ -40,9 +50,62 @@ html {
 }
 
 .table-content tbody tr:last-of-type {
-  border-bottom: 13px solid #5525be;
+  border-bottom: 13px solid var(--default-color);
 }
 
 .table-content tbody tr.active-row {
   font-weight: bold;
+}
+
+.owner-content {
+  display: flex;
+  flex-direction: column;
+  justify-self: start;
+  align-items: center;
+}
+
+.owner-content img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  padding-bottom: 10px;
+  transition-duration: 0.4s;
+}
+.owner-content img:hover {
+  transform: scale(1.2);
+}
+
+.table-content tbody tr td a.repo-name {
+  color: black;
+  font-size: 35px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.table-content tbody tr td a.repo-name:hover {
+  text-decoration: underline;
+}
+
+.table-content tbody tr td a.owner-name {
+  color: black;
+  text-decoration: none;
+}
+
+.table-content tbody tr td a.owner-name:hover {
+  text-decoration: underline;
+}
+
+.table-content tbody tr td div.hide {
+  display: none;
+}
+
+.table-content tbody tr td a.repo-name:hover + .hide {
+  display: block;
+}
+
+.bold {
+  font-weight: bold;
+}
+div.hide p {
+  font-size: 15px;
 }

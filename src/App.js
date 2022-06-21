@@ -47,9 +47,11 @@ export default function App() {
     if (repo[pageIndex] === undefined) {
       setCurrentPageUrl(nextPageUrl);
     }
+    window.scrollTo(0, 0);
   }
   function gotoPrevPage() {
     setPageIndex(pageIndex - 1);
+    window.scrollTo(0, 0);
   }
 
   if (loading) return <Loading />; //add A LOADING COMPONENT
