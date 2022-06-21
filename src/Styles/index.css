@@ -47,7 +47,7 @@ body {
   border-bottom: 1px solid #dddddd;
 }
 
-.table-content tbody tr:nth-of-type(even) {
+.table-content tbody tr:hover {
   background-color: #f4f4f4;
 }
 
@@ -105,6 +105,10 @@ body {
 
 .table-content tbody tr td a.repo-name:hover + .hide {
   display: block;
+}
+
+.table-content tbody tr td a.onwer-name:active {
+  color: red;
 }
 
 .bold {

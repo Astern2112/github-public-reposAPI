@@ -12,7 +12,6 @@ export default function RepoList() {
           <th>ID</th>
           <th>Name</th>
           <th>Owner</th>
-          {/* <th>Type</th> */}
           <th>Description</th>
         </tr>
       </thead>
@@ -61,7 +60,6 @@ export default function RepoList() {
                   </a>
                 </div>
               </td>
-              {/* <td>{r.owner.type} </td> */}
               <td>{r.description}</td>
             </tr>
           ))}

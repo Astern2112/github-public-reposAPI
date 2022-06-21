@@ -3,15 +3,43 @@ import "../Styles/Pagination.css";
 
 export default function Pagination({ gotoNextPage, gotoPrevPage, pageIndex }) {
   return (
-    <div className="navbar">
-      <button id="PrevButton" onClick={gotoPrevPage} disabled={pageIndex === 1}>
-        {" "}
-        ❮ Previous{" "}
-      </button>
-      <p className="pageIndex"> Page {pageIndex}</p>
-      <button id="NextButton" onClick={gotoNextPage}>
-        Next ❯{" "}
-      </button>
-    </div>
+    <nav>
+      <form className="page-input-form">
+        <label htmlFor="page-input">Go to page </label>
+        <input type="number" id="page-input" />
+        <button type="submit">Go</button>
+      </form>
+
+      <div className="navbar">
+        <button
+          className="prevButton"
+          onClick={gotoPrevPage}
+          disabled={pageIndex === 1}
+        >
+          {" "}
+          ❮ Previous{" "}
+        </button>
+
+        <div className="page-buttons">
+          <button
+            className="prevPage"
+            onClick={gotoPrevPage}
+            disabled={pageIndex === 1}
+          >
+            {pageIndex - 1}
+          </button>
+          <button className="currentPage">{pageIndex}</button>
+          <button className="nextPage" onClick={gotoNextPage}>
+            {pageIndex + 1}
+          </button>
+        </div>
+
+        <button className="nextButton" onClick={gotoNextPage}>
+          Next ❯{" "}
+        </button>
+      </div>
+    </nav>
   );
 }
+
+// current page, n+1, n+2, n+3, ... + arr.length-1
