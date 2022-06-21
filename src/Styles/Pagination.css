@@ -20,7 +20,7 @@ button {
   font-size: 20px;
   font-weight: bold;
   color: white;
-
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
   transition-duration: 0.4s;
 }
 
@@ -37,4 +37,10 @@ button:active {
 
 button:disabled {
   visibility: hidden;
+}
+
+.pageIndex {
+  margin: 0;
+  font-size: 25px;
+  font-weight: bold;
 }

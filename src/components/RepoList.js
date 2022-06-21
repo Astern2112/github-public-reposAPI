@@ -45,7 +45,11 @@ export default function RepoList() {
               <td>
                 <div className="owner-content">
                   <a href={r.owner.html_url} target="_blank" rel="noreferrer">
-                    <img src={r.owner.avatar_url} alt="Onwer Avatar" />{" "}
+                    <img
+                      src={r.owner.avatar_url}
+                      alt="Onwer Avatar"
+                      loading="lazy"
+                    />{" "}
                   </a>
                   <a
                     href={r.owner.html_url}

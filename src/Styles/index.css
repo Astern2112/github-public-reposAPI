@@ -1,5 +1,7 @@
 :root {
+  --page-background-color: #c7d3f5;
   --default-color: rgb(65, 73, 194);
+  --link-hover-color: #0074d9;
 }
 
 html {
@@ -8,7 +10,7 @@ html {
 }
 body {
   display: flex;
-  background-color: rgb(255, 255, 255);
+  background-color: var(--page-background-color);
 }
 
 .page-heading {
@@ -23,8 +25,7 @@ body {
 
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
   background-color: rgb(255, 255, 255);
 }
 
@@ -85,6 +86,7 @@ body {
 
 .table-content tbody tr td a.repo-name:hover {
   text-decoration: underline;
+  color: var(--link-hover-color);
 }
 
 .table-content tbody tr td a.owner-name {
@@ -94,6 +96,7 @@ body {
 
 .table-content tbody tr td a.owner-name:hover {
   text-decoration: underline;
+  color: var(--link-hover-color);
 }
 
 .table-content tbody tr td div.hide {
