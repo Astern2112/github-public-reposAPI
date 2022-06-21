@@ -1,18 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
+import { PageContext } from "../App";
 import "../Styles/Pagination.css";
 
-export default function Pagination({ gotoNextPage, gotoPrevPage, pageIndex }) {
+export default function Pagination() {
+  let { gotoNextPage, gotoPrevPage, pageIndex, gotoPage, pageInput } =
+    useContext(PageContext);
   return (
     <nav>
-      <form className="page-input-form">
+      <div className="page-input-form">
         <label htmlFor="page-input" className="page-input-label">
           Go to page{" "}
         </label>
-        <input type="number" id="page-input" min={1} placeholder={pageIndex} />
-        <button type="submit" className="page-input-form-btn">
+        <input
+          type="number"
+          id="page-input"
+          min={1}
+          placeholder={pageIndex}
+          ref={pageInput}
+        />
+        <button className="page-input-form-btn" onClick={gotoPage}>
           Go
         </button>
-      </form>
+      </div>
 
       <div className="navbar">
         <button
@@ -45,5 +54,3 @@ export default function Pagination({ gotoNextPage, gotoPrevPage, pageIndex }) {
     </nav>
   );
 }
-
-// current page, n+1, n+2, n+3, ... + arr.length-1

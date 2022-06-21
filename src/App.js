@@ -1,10 +1,13 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext, useRef } from "react";
 import RepoList from "./components/RepoList";
 import axios from "axios";
 import Loading from "./components/Loading";
 import Pagination from "./components/Pagination";
-export const RepoContext = createContext();
+
 var parse = require("parse-link-header");
+
+export const PageContext = createContext();
+export const RepoContext = createContext();
 
 export default function App() {
   const [repo, setRepo] = useState([]);
@@ -14,6 +17,7 @@ export default function App() {
   const [nextPageUrl, setNextPageUrl] = useState("");
   const [pageIndex, setPageIndex] = useState(1);
   const [loading, setLoading] = useState(true);
+  const pageInput = useRef(null);
 
   useEffect(() => {
     async function getData() {
@@ -42,16 +46,39 @@ export default function App() {
     return arr;
   }
 
+  const smoothScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
+
   function gotoNextPage() {
     setPageIndex(pageIndex + 1);
     if (repo[pageIndex] === undefined) {
       setCurrentPageUrl(nextPageUrl);
     }
-    window.scrollTo(0, 0);
+    smoothScrollToTop();
   }
   function gotoPrevPage() {
     setPageIndex(pageIndex - 1);
-    window.scrollTo(0, 0);
+    smoothScrollToTop();
+  }
+
+  async function gotoPage() {
+    const page = parseInt(pageInput.current.value);
+    if (isNaN(page)) {
+      setCurrentPageUrl(currentPageUrl);
+      setPageIndex(pageIndex);
+    } else {
+      setPageIndex(page);
+      if (repo[page - 1] === undefined) {
+        setCurrentPageUrl(nextPageUrl);
+      }
+    }
+
+    smoothScrollToTop();
   }
 
   if (loading) return <Loading />; //add A LOADING COMPONENT
@@ -62,11 +89,11 @@ export default function App() {
       <RepoContext.Provider value={{ repo, pageIndex }}>
         <RepoList />
       </RepoContext.Provider>
-      <Pagination
-        gotoNextPage={gotoNextPage}
-        gotoPrevPage={gotoPrevPage}
-        pageIndex={pageIndex}
-      />
+      <PageContext.Provider
+        value={{ gotoNextPage, gotoPrevPage, pageIndex, gotoPage, pageInput }}
+      >
+        <Pagination />
+      </PageContext.Provider>
     </>
   );
 }
