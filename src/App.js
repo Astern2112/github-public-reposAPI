@@ -58,7 +58,7 @@ export default function App() {
 
   return (
     <>
-      <h1 className="page-heading">Github Public Repositories Aaron</h1>
+      <h1 className="page-heading">Github Public Repositories</h1>
       <RepoContext.Provider value={{ repo, pageIndex }}>
         <RepoList />
       </RepoContext.Provider>
