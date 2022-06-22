@@ -9,6 +9,7 @@ html {
   color: black;
 }
 body {
+  width: 100%;
   display: flex;
   background-color: var(--page-background-color);
 }
