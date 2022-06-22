@@ -22,7 +22,7 @@ export default function App() {
   useEffect(() => {
     async function getData() {
       setLoading(true);
-      let splitRepo = repo;
+      let splitRepo = [...repo];
       while (splitRepo[pageIndex - 1] === undefined) {
         const response = await axios.get(currentPageUrl);
         const parsedLink = parse(response.headers.link);
