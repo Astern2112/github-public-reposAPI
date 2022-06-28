@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
 import { RepoContext } from "../App";
 
-//Need to align table cells, and style table
-
 export default function RepoList() {
   let { repo, pageIndex } = useContext(RepoContext);
   return (
@@ -16,8 +14,9 @@ export default function RepoList() {
         </tr>
       </thead>
       <tbody>
-        {repo[pageIndex - 1] &&
+        {repo[pageIndex - 1] && // checks weather the index of the pageRequested exists, if it does then it will render the table content
           repo[pageIndex - 1].map((r) => (
+            // mapps over each element in the array at the index of the requested page.
             <tr key={r.id}>
               <td>{r.id}</td>
               <td>
